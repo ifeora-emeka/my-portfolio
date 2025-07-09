@@ -1,0 +1,21 @@
+export const skills = [
+  "NestJS",
+  "Figma UI/UX",
+  "JavaScript",
+  "React & React Native",
+  "Next.js 12 & 15",
+  "Postgres SQL",
+  "TypeScript",
+  "Node.js",
+  "Redux",
+  "Git",
+  "Tailwind CSS",
+  "GraphQL",
+  "MongoDB",
+  "Express",
+  "Storybook",
+  "CI/CD",
+  "Jest & Cypress",
+  "LangChain (RAG)",
+  "AWS"
+];
