@@ -4,8 +4,14 @@ import Link from 'next/link'
 import PageBody from '@/components/PageBody'
 import { blogs } from '@/data/blog.data'
 
-export default function BlogDetailsPage({ params }: { params: { slug: string } }) {
-	const blog = blogs.find((b) => b.slug === params.slug)
+type Props = {
+  params: Promise<{ slug: string }>
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
+
+export default async function BlogDetailsPage({ params }: Props) {
+	const { slug } = await params
+	const blog = blogs.find((b) => b.slug === slug)
 	if (!blog) {
 		return (
 			<PageBody hasBackButton>

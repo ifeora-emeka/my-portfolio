@@ -5,8 +5,14 @@ import { projects } from "@/data/projects.data"
 import { FiExternalLink, FiGithub, FiPlayCircle, FiCalendar, FiUsers, FiAward, FiTarget, FiX, FiImage, FiVideo } from "react-icons/fi"
 import PageBody from "@/components/PageBody"
 
-export default function ProjectDetailsPage({ params }: { params: { slug: string } }) {
-    const project = projects.find(p => p.slug === params.slug)
+type Props = {
+  params: Promise<{ slug: string }>
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
+
+export default async function ProjectDetailsPage({ params }: Props) {
+    const { slug } = await params
+    const project = projects.find(p => p.slug === slug)
     const [selectedMedia, setSelectedMedia] = useState(0)
     const [showVideo, setShowVideo] = useState(false)
     const [isVideoPlaying, setIsVideoPlaying] = useState(false)
