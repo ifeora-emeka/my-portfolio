@@ -16,7 +16,7 @@ export default function page() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className='relative mb-6'
           >
-            <div className='w-48 h-48 rounded-full overflow-hidden border-4 border-primary/20'>
+            <div className='w-48 h-48 rounded-full overflow-hidden border-4 border-primary/20 mt-20'>
               <img src='/me.jpg' alt='Emeka Ifeora' className='w-full h-full object-cover' />
             </div>
             <div className='absolute -bottom-2 -right-2 w-12 h-12 bg-primary rounded-full flex items-center justify-center'>
