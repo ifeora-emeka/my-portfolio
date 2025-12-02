@@ -30,7 +30,6 @@ async function createApp() {
 
     app.set('view engine', 'ejs');
     app.set('views', path.join(rootDir, 'src/site'));
-    app.use(ejsLayouts);
     app.set('layout extractScripts', true);
     app.set('layout extractStyles', true);
     app.use(express.static(path.join(rootDir, 'src/site/public')));
@@ -39,14 +38,27 @@ async function createApp() {
         app.use(createRouteDebugger());
     }
 
+    app.get('/health', (req: Request, res: Response) => {
+        res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
+    });
+
+    const { default: apiRoutes } = await import('./api/routes.js');
+    app.use('/api', apiRoutes);
+
     app.use((req: Request, res: Response, next: NextFunction) => {
+        if (req.path.startsWith('/api')) {
+            return next();
+        }
         res.locals.currentPath = req.path;
         res.locals.metadata = metadata;
         next();
     });
 
-    app.get('/health', (req: Request, res: Response) => {
-        res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
+    app.use((req: Request, res: Response, next: NextFunction) => {
+        if (req.path.startsWith('/api')) {
+            return next();
+        }
+        ejsLayouts(req, res, next);
     });
 
     app.use(dynamicRouter.middleware());
